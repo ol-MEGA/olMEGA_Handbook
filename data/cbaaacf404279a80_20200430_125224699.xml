@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mobiquest>
+<motivation motivation ="manual"/>
+<record uri="tmp/cbaaacf404279a80_20200430_125224699.xml"
+ survey_uri="tmp.xml">
+<value device_id="cbaaacf404279a80"/>
+<value start_date="2020-04-30T12:52:24"/>
+<value start_date_UTC="2020-04-30T12:52:24"/>
+<value app_version="1.4"/>
+<value question_id="10101" option_ids="1010102"/>
+<value question_id="10102" option_ids="1010202"/>
+<value question_id="10103" option_ids="1010301"/>
+<value question_id="10104" option_ids="Some generic text."/>
+<value question_id="10105" option_ids="1010504"/>
+<value question_id="10106" option_ids="0.36958176"/>
+<value question_id="10107"/>
+<value end_date="2020-04-30T12:53:13"/>
+<value end_date_UTC="2020-04-30T12:53:13"/>
+</record>
+</mobiquest>
