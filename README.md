@@ -3,6 +3,8 @@
 # olMEGA_Documentation
 Handbook on the use of olMEGA and creation of questionnaires.
 
+## License:
+
 Copyright 2020 olMEGA
 
 Licensed under the Apache License, Version 2.0 (the "License");
