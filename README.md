@@ -1,6 +1,6 @@
 <img src="https://github.com/ol-MEGA/olMEGA_DataExtraction/blob/master/functions_reporting/latex/images/Logo.png" alt="olMEGA Logo" width="150">
 
-# olMEGA_Documentation
+# olMEGA_Handbook
 Handbook on the use of olMEGA and creation of questionnaires.
 
 ## License:
