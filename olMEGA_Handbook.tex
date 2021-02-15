@@ -289,7 +289,7 @@ The questionnaires are generated on the basis of .xml files which can be altered
 
 \subsection{Location of questionnaire files}
 
-Questionnaire files are placed in the \textit{quest} folder located in the main directory. The application will automatically sort all questionnaire files alphabetically and pick the uppermost. If you would like to use a specific questionnaire, you can choose manually from the preferences menu (see \ref{sub:experimenter}), but we recommend placing only a single file in the \textit{quest} folder in order to avoid confusion. 
+Questionnaire files are placed in the \texttt{quest} folder located in the main directory. The application will automatically sort all questionnaire files alphabetically and pick the uppermost. If you would like to use a specific questionnaire, you can choose manually from the preferences menu (see \ref{sub:experimenter}), but we recommend placing only a single file in the \texttt{quest} folder in order to avoid confusion. 
 
 
 \subsection{Head}
@@ -618,6 +618,96 @@ As the name suggests, it is possible to include one or more external websites in
 \end{center}
 
 
+\subsubsection{Time-specific behaviour}
+
+The \emph{time} format allows for questionnaires that include aspects specific to the time of day. This question is processed internally and not displayed to the user. If the current time falls within one of the given intervals (here: 06:00-12:00 and 12:00-18:00), the corresponding id is pushed to memory and can be used as a filter for subsequent questions (consult \ref{sub:logic} for reference). This question type should therefore be placed at the beginning of a questionnaire. Use of the 24h HH:mm format is mandatory.
+
+\begin{center}
+\hspace{-0.8cm}
+\begin{tabular}{p{0.68\textwidth} p{0.25\textwidth}} 
+		\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+		\texttt{\noindent
+			$<$question id="10109" type="time"$>$\newline
+			\hspace*{0.5cm}$<$option id="10109\_01"$>$\newline
+			\hspace*{1.0cm}$<$text$>$06:00-12:00$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/option$>$\newline
+			\hspace*{0.5cm}$<$option id="10109\_02"$>$\newline
+			\hspace*{1.0cm}$<$text>12:00-18:00$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/option$>$\newline
+			$<$/question$>$
+			}
+		\end{tcolorbox} 
+		
+		&
+		
+	\end{tabular}\\
+\end{center}
+
+
+\subsubsection{Information without interaction}
+
+There may be the need for displaying information to the user. This is where this feature comes in handy. The text in the label is displayed as a heading and the option contents is placed as free-flowing text. Similar to html, line breaks are forced by inserting $<$br/$>$. Since no behaviour is educed from this screen, an option id is not assigned.
+
+\begin{center}
+\hspace{-1.1cm}
+	\begin{tabular}{p{0.68\textwidth} p{0.25\textwidth}} 
+		\raisebox{-\totalheight}{
+		\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+		\texttt{\noindent
+			$<$question id="10110" type="infoscreen"$>$\newline
+			\hspace*{0.5cm}$<$label$>$\newline
+			\hspace*{1.0cm}$<$text>Title$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/label$>$\newline
+			\hspace*{0.5cm}$<$option$>$\newline
+			\hspace*{1.0cm}$<$text$>$This is some explanatory or \newline
+			\hspace*{1.0cm}informational text that is displayed\newline
+			\hspace*{1.0cm}to the user.$<$br/$>$It can be very long\newline
+			\hspace*{1.0cm}or rather concise although we would\newline
+			\hspace*{1.0cm}recommend limiting its length to one\newline 
+			\hspace*{1.0cm}screen as vertical swiping might be\newline 
+			\hspace*{1.0cm}confusing to the user.$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/option$>$\newline
+			$<$/question$>$
+			}
+		\end{tcolorbox} 
+		}
+		&
+		\vspace{-0.29cm}
+		\raisebox{-\totalheight}{
+			\includegraphics[width=0.30\textwidth]{images/screen_infoscreen_box.png}
+		}
+	\end{tabular}\\
+\end{center}
+
+\subsubsection{Information with interaction}
+
+This is an alternative to the \emph{finish} screen, but with the option of filters. Additionally, there may exist multiple of these screens within one survey design. Pressing the button leads to completion of the questionnaire. The information text is displayed inside the heading. Note that this feature might be updated in future releases.
+
+\begin{center}
+\hspace{-1.1cm}
+	\begin{tabular}{p{0.68\textwidth} p{0.25\textwidth}} 
+		\raisebox{-\totalheight}{
+		\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+		\texttt{\noindent
+			$<$question id="10110" type="info"$>$\newline
+			\hspace*{0.5cm}$<$label$>$\newline
+			\hspace*{1.0cm}$<$text>Title$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/label$>$\newline
+			$<$/question$>$
+			}
+		\end{tcolorbox}
+		}
+		&
+		\vspace{-0.29cm}
+		\raisebox{-\totalheight}{
+			\includegraphics[width=0.30\textwidth]{images/screen_info_box.png}
+		}
+	\end{tabular}\\
+\end{center}
+
+
+
+
 \subsubsection{Finish}
 
 The last question must be the finish page which automatically includes a button that completes the questionnaire and saves the results:
@@ -765,9 +855,28 @@ Two types of comments are supported by the questionnaire format. Single line com
 \end{center}
 
 
+\section{Error Messages}
+
+\begin{wrapfigure}{r}{5cm}
+\vspace{-0.5cm}
+		\centering
+			\begin{minipage}{0.30\textwidth}
+			\includegraphics[width=1.00\textwidth]{images/error_quest_box.png}
+			\label{fig:menu}
+			\end{minipage}
+	\end{wrapfigure}
+
+Inside the application there exist 4 different error messages. These are displayed on the main screen in case of malfunction or general situations that require the user's attention.\\
+\\
+\textbf{Unable to connect to device:} No bluetooth connection can be established. Usually there are 2 possible reasons. Either the transmitter and receiver are too far apart (a distance of $<$10m is advisable), or the connection was lost due to faulty settings. In this case, please check the settings of your mobile phone if the transmitter is still paired with the device.\\
+\\
+\textbf{Please charge the smartphone:} Strictly speaking this is not an error but a suggestion to do exactly that. This message is shown when the battery level falls below 10\%. The device will probably work for 30 more minutes but, if possible, should be recharged soon.\\
+\\
+\textbf{Battery level critical - application stopped:} Battery level is below 5\% and the connection was cut. In order to protect the device and prevent data loss, it should be connected to a charger immediately.\\
+\\
+\textbf{Unable to load questionnaire:} No questionnaire .xml file could be found in the corresponding folder on the mobile device (\texttt{sdcard/olmega/quest}). Please upload a file and restart the application. If the error still prevails, please access the in-app preferences and select it manually (\emph{Select questionnaire} at the top of the preferences menu). Then restart the application. If you are using an older version of the system (titled \emph{IHAB}), the correct directory to upload to is (\texttt{sdcard/ihab/quest}).
 
 \clearpage
-
 
 \section{Resulting file}
 
