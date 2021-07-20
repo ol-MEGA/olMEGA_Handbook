@@ -145,7 +145,7 @@
 
 \section{Introduction}
 
-The application you have obtained is a version of the olMEGA EMA system. For standalone use no additional equipment will be required except for a computer to facilitate installation and data transfer. The software has been tested on numerous devices running Android versions 9 or later, but is still undergoing development. Please feel free to report bugs or contact us in case of difficulties during installation or usage. The given directions in the operating system settings may vary across devices.
+The application you have obtained is a version of the olMEGA EMA system. For standalone use no additional equipment will be required except for a computer to facilitate installation and data transfer. The software has been tested on numerous devices running Android versions 9 or later, but is still undergoing development. Please feel free to report bugs or contact us in case of difficulties during installation or usage. The given directions in the operating system settings may vary across devices. An up-to-date version of all olMEGA software including this handbook is freely available under \url{https://tgm.jade-hs.de/media/olMEGA}.
 
 
 \section{Installation}
@@ -186,11 +186,11 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	
 	\item Now that a connection has been verified, navigate via the console to the directory that holds the .apk file and input\\
 	\\
-	\colorbox{black!10}{\texttt{adb install olMEGA\_Mobile.apk}}.\\
+	\colorbox{black!10}{\texttt{adb install [name of the apk].apk}}.\\
 	\\
 	This will install the application. In case an older version of the application is already installed, type\\
 	\\
-	\colorbox{black!10}{\texttt{adb install-r olMEGA\_Mobile.apk}}.\\
+	\colorbox{black!10}{\texttt{adb install-r [name of the apk].apk}}.\\
 	
 	\item In order to make the application a device owner, which is needed for it to run as a dedicated device, type\\
 	\\
@@ -235,7 +235,7 @@ When testing a new questionnaire, it is helpful to disable the Kiosk mode and en
 
 \subsection{Operation Modes}\label{sub:operationmode}
 
-The olMEGA application comes with 3 pre-configured modes of operation which serve as a starting point as they may be tailored to the experimenter's demands. These operation modes are defined in separate *.xml files that are found in the \texttt{AFEx} folder inside the main application directory. A mode is selected via the preferences menu. Factory presets are:
+The olMEGA application comes with 3 pre-configured modes of operation which serve as a starting point as they may be tailored to the experimenter's demands. These operation modes are defined in separate *.xml files that are found in the \texttt{AFEx} folder inside the main application directory on the smartphone. For devices running Android 11, this directory is located under \texttt{sdcard/Android/data/com.iha.olmega\_mobilesoftware\_v2/files/AFEx}. Earlier operating systems use the directory \texttt{sdcard/olmega/AFEx}.  A mode is selected via the preferences menu. Factory presets are:
 
 \begin{itemize}[label=\ClrSquare{jadeRed}]
 	\item \texttt{example\_mic\_in\_speaker\_out}: The internal microphone serves as input audio source and the incoming signal is routed to the dynamic acoustic feature extraction stage and from there to the system output. (Warning: This may lead to acoustic feedback.)
@@ -250,12 +250,12 @@ In case of a bluetooth connection, the devices must be paired. More information 
 
 \subsection{The Preferences Menu}\label{sub:preferences}
 
-The in-app settings can be accessed in two ways. If the ``Configuration Mode'' has been enabled, a short click on the logo icon in the top left corner of the application opens the settings screen. In normal use, a long click of 5 seconds is necessary to access the menu. Here is a list of all available settings:
+The in-app preferences can be accessed in two ways. If the ``Configuration Mode'' has been enabled, a short click on the logo icon in the top left corner of the application opens the preferences screen. In normal use, a long click of 5 seconds is necessary to access the menu. Here is a list of all available settings:
 \begin{center}
 \begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=14pt,top=4pt,bottom=2pt]
 \begin{itemize}[label=\ClrSquare{jadeRed}]
-	\item Autostart: If enabled, the app starts automatically.
-	\item USB cuts Connection: The bluetooth connection is terminated if a USB connection is made. 
+	\item Autostart: If enabled, the app starts automatically -- also after rebooting the device.
+	\item USB cuts Connection: The bluetooth connection is terminated if a USB connection is made, stopping all acoustic feature extraction as well.
 	\item Kiosk Mode: If all prerequisites are met, a KIOSK mode is instantiated, granting the application full control of the device.
 	\item Operation Mode: Here the operation mode is selected (see \ref{sub:operationmode})
 	\item Use Questionnaire: Determines whether a questionnaire is used
@@ -912,7 +912,7 @@ Inside the application there exist 6 different error messages. These are display
 \\
 \textbf{Stage Manager Config-File [*] not valid:} The selected operation mode [*].xml file is invalid. Please check the file you are using.\\
 \\
-\textbf{Unable to start Kiosk-Mode -- Please check DeviceOwner Setting:} The KIOSK mode relies on 2 prerequisites. A device owner must be initiated (see \ref{sub:installation} for reference), and the ``Experimenter'' setting must be unset.\\
+\textbf{Unable to start Kiosk-Mode -- Please check Device Admin Setting:} The KIOSK mode relies on 2 prerequisites. A device owner must be initiated (see \ref{sub:installation} for reference), and the ``Experimenter'' setting must be unset.\\
 \\
 \textbf{Please charge the smartphone:} Strictly speaking this is not an error but a suggestion to do exactly that. This message is shown when the battery level falls below 10\%. The device will probably work for 30 more minutes but, if possible, should be recharged soon.\\
 \\
