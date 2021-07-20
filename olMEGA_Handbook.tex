@@ -24,6 +24,10 @@
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{tabularx}
+\usepackage{enumitem}
+
+\newcommand\ClrSquare[1]{\textcolor{#1}{\rule{7pt}{7pt}}}
+\newcommand\ClrSquareBig[1]{\textcolor{#1}{\rule{10pt}{10pt}}}
 
 \parindent0mm
 %\usepackage[protrusion=true,expansion=true]{microtype}
@@ -38,6 +42,15 @@
 \definecolor{gray}{rgb}{0.4,0.4,0.4}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\definecolor{jadeRed}{rgb}{0.7578, 0.0625, 0.1641}
+
+\definecolor{ml_charging}{rgb}{0, 0.447, 0.741}
+\definecolor{ml_error}{rgb}{0.85, 0.325, 0.098}
+\definecolor{ml_proposing}{rgb}{0.929, 0.694, 0.125}
+\definecolor{ml_connecting}{rgb}{0.494, 0.184, 0.556}
+\definecolor{ml_running}{rgb}{0.466, 0.674, 0.188}
+\definecolor{ml_quest}{rgb}{0.301, 0.745, 0.933}
+\definecolor{ml_offline}{rgb}{0.7, 0.7, 0.7}
 
 \lstset{
   basicstyle=\ttfamily,
@@ -78,7 +91,7 @@
 \newcommand{\titleFull}{olMEGA Mobile Software}
 \renewcommand{\title}{olMEGA Mobile Software}
 \newcommand{\Institute}{Institute of Hearing Technology and Audiology, Oldenburg}
-\newcommand{\version}{v1.5}
+\newcommand{\version}{v2.0}
 %
 \pagestyle{fancy}
 \lhead{\footnotesize \parbox{11cm}{\Institute} }
@@ -132,18 +145,7 @@
 
 \section{Introduction}
 
-The application you have obtained is a version of the olMEGA EMA system. For standalone use no additional equipment will be required except for a computer to facilitate installation and data transfer. The software has been tested on the following devices:
-\begin{itemize}
-	\item LG Electronics Nexus 5 (Android 5.1 \& 6.0.1)
-	\item Motorola XT1032 (Androd 5.1)
-	\item Motorola Moto G2  (Android 6.0)
-	\item Motorola Moto G8+ (Android 9)
-	\item Lenovo TB2 X30F (Android 6.0.1)
-	\item Nokia 7 Plus (Android 10)
-	\item ...
-\end{itemize}
-
-The application is still undergoing development. Please feel free to report bugs or contact us in case of difficulties during installation or usage. The given directions in the operating system settings may vary between devices.
+The application you have obtained is a version of the olMEGA EMA system. For standalone use no additional equipment will be required except for a computer to facilitate installation and data transfer. The software has been tested on numerous devices running Android versions 9 or later, but is still undergoing development. Please feel free to report bugs or contact us in case of difficulties during installation or usage. The given directions in the operating system settings may vary across devices.
 
 
 \section{Installation}
@@ -151,9 +153,9 @@ The application is still undergoing development. Please feel free to report bugs
 
 \subsection{Requirements}
 
-The device should be reset to its operating system default (\textit{Settings}$\rightarrow$\textit{Backup\&reset}$\rightarrow$\textit{Factory data reset}) prior to the installation. All accounts (\textit{Settings}$\rightarrow$\textit{Accounts}) as well as device administrators (\textit{Settings}$\rightarrow$\textit{Security}$\rightarrow$\textit{Device administrators}) need to be removed, too. On an average size display, the font size should be set to \textit{Large} (\textit{Settings}$\rightarrow$\textit{Display}$\rightarrow$\textit{Font size}). Required for the installation are:
+The device should be reset to its operating system default (\textit{Settings}$\rightarrow$\textit{Backup\&reset}$\rightarrow$\textit{Factory data reset}) prior to the installation. All accounts (\textit{Settings}$\rightarrow$\textit{Accounts}) as well as device administrators (\textit{Settings}$\rightarrow$\textit{Security}$\rightarrow$\textit{Device administrators}) need to be removed, too. On an average size display a \textit{Medium} font size is sufficient (\textit{Settings}$\rightarrow$\textit{Display}$\rightarrow$\textit{Font size}). Required for the installation are:
 
-\begin{itemize}
+\begin{itemize}[label=\ClrSquare{jadeRed}]
 	\item USB connection between smartphone and computer
 	\item Free software \textit{ADB} (Android Debug Bridge), e.g. ``Minimal ADB and Fastboot''
 	\item olMEGA mobile .apk installation file
@@ -162,7 +164,7 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 \end{itemize}
 
 
-\subsection{Installation steps}
+\subsection{Installation steps}\label{sub:installation}
 
 \begin{enumerate}
 
@@ -186,7 +188,7 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	\\
 	\colorbox{black!10}{\texttt{adb install olMEGA\_Mobile.apk}}.\\
 	\\
-	This will install the application. In case a previous version of the application is already installed, type\\
+	This will install the application. In case an older version of the application is already installed, type\\
 	\\
 	\colorbox{black!10}{\texttt{adb install-r olMEGA\_Mobile.apk}}.\\
 	
@@ -194,25 +196,17 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	\\
 	\colorbox{black!10}{\texttt{adb shell dpm set-device-owner com.fragtest.android.pa/.AdminReceiver}}.\\
 	
-	\item To keep any information from popping up and confusing the user, input\\
+	\item On opening, please grant the application permission to record audio as well as memory access. You will be informed that no questionnaire file is present. To copy the questionnaire .xml file to its directory on the smartphone, please enter one of the two the following command from the directory that holds the .xml file ([*].xml is the name of your questionnaire):\\
 	\\
-	\colorbox{black!10}{\texttt{adb shell appops set android TOAST\_WINDOW deny}}.\\
-	
-	\item In the application settings \textit{Settings}$\rightarrow$\textit{Apps}$\rightarrow$\textit{olMEGA} you need to enable all permissions (Audio input, Memory). This could also be done within the application but it is much simpler to do it upfront.\\
-	
-	\item On opening, the application will eventually crash because no questionnaire file is present (however, this step is necessary to build the file system). To copy the questionnaire .xml file to its directory on the smartphone, please enter the following command from the directory that holds the .xml file:\\
+	Android version $<$11:\\
+	\colorbox{black!10}{\texttt{adb push [*].xml sdcard/olMEGA/quest}}\\
 	\\
-	\colorbox{black!10}{\texttt{adb push [questionnaire file name] sdcard/olMEGA/quest}}\\
+	Android version 11+:\\
+	\colorbox{black!10}{\texttt{adb push [*].xml sdcard/Android/data/com.iha.olmega\_mobilesoftware\_v2/files/quest}}\\
 	
-	
-	\newpage
-	
-	
-	\item Restart the phone by entering\\ 
-	\\
-	\colorbox{black!10}{\texttt{adb reboot}}.\\
 \end{enumerate}
 
+\newpage
 
 \section{Using the application}\label{sec_usage}
 
@@ -223,60 +217,90 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 \vspace{-0.5cm}
 		\centering
 			\begin{minipage}{0.30\textwidth}
-			\includegraphics[width=1.00\textwidth]{images/screen_menu_box.png}
+			\includegraphics[width=1.00\textwidth]{images/v2_screen_main_ed.png}
 			\label{fig:menu}
 			\end{minipage}
 	\end{wrapfigure}
 
-If the installation was successful, the smartphone now runs as a dedicated device (or kiosk device), meaning that the user cannot leave the application or make alterations to the operating system. Most buttons are disabled or limited to specific use -- including the power button which will only restart the device after a long push.\\
+The main view (see figure on the right) of the application features a bar at the top with a ``Help'' button, providing a general explanation of the main answer formats. Top right are a microphone symbol indicating that the application is running without errors (see also \ref{sub:operationmode}) and a battery symbol displaying the current state of charge.\\
 \\
-The menu view (see figure on the right) of the application features a bar at the top with a \textit{Help} button, providing a general explanation of the main answer formats. Next to it is a microphone symbol that will change its color according to the type of data input (see \ref{sub:operationmode}). On the right hand side is a battery symbol displaying the current state of charge.\\
-\\
-The center of the screen features the "Take Questionnaire" button (in case of no major errors present) which can be used to manually start a questionnaire at any given time. Above it is a display of the time until the next questionnaire notification is triggered. If a questionnaire is prompted the font size increases, accompanied by vibrating alert.
+The center of the screen features the ``Take Questionnaire'' button (in case of no major errors present) which can be used to manually start a questionnaire at any given time. Above it is a display of the time until the next questionnaire notification is triggered. If a questionnaire is prompted the font colour changes to red, accompanied by vibrating alert.
 
 
-\subsection{Experimenter Mode}\label{sub:experimenter}
 
-When testing a new questionnaire, it is helpful to disable the Kiosk mode. The easiest way is via the \textit{Experimenter mode}, which can be unlocked by copying a specific file to the main application folder (\textit{olMEGA}). The file may be empty and must be named ``config'' without a formatted ending. To enter the in-app preferences menu, simply hold down the ``HELP'' button in the top left corner for 5 seconds. Inside the preferences, you are free to disable the Kiosk mode as well as change other settings. This will also provide a way to exit a questionnaire by clicking the ``olMEGA'' logo in the top left corner. In order to ensure that each questionnaire is answered by the subject, switching off the experimenter mode during an experiment is advisable.
+\subsection{Configuration Mode}\label{sub:experimenter}
 
-
-\newpage
+When testing a new questionnaire, it is helpful to disable the Kiosk mode and enable the Configuration mode. Both can be set via the internal preferences menu (\ref{sub:preferences}). Once it is enabled, the logo will turn green (as shown on the screen on the right). You are now free to enter the preferences simply by tapping the logo. 
 
 
 \subsection{Operation Modes}\label{sub:operationmode}
 
-The olMEGA application offers 6 different modes of operation which are indicated by the color of the microphone symbol at the top center of the screen. If no objective data connection can be established (not needed in Standalone mode), the symbol is gray \includegraphics[width=0.02\textwidth]{images/mic_gray.png}. The mode is selected via the preferences menu.
+The olMEGA application comes with 3 pre-configured modes of operation which serve as a starting point as they may be tailored to the experimenter's demands. These operation modes are defined in separate *.xml files that are found in the \texttt{AFEx} folder inside the main application directory. A mode is selected via the preferences menu. Factory presets are:
 
+\begin{itemize}[label=\ClrSquare{jadeRed}]
+	\item \texttt{example\_mic\_in\_speaker\_out}: The internal microphone serves as input audio source and the incoming signal is routed to the dynamic acoustic feature extraction stage and from there to the system output. (Warning: This may lead to acoustic feedback.)
+	\item \texttt{example\_rfcomm\_in\_audio\_out}: Audio input is received through a serial bluetooth connection via an RFCOMM protocol and fed to a feature extraction engine and finally to the system output. (Warning: This may lead to acoustic feedback.)
+	\item \texttt{standalone}: No acoustic data is recorded or extracted.
+\end{itemize}
+
+In case of a bluetooth connection, the devices must be paired. More information is provided in \ref{sub:linkdevice}. If either the connection is working fine or no connection is needed (e.g. Standalone mode), the microphone symbol is blue \includegraphics[width=0.02\textwidth]{images/mic_darkblue.png}. In case the application experiences an error significant enough to compromise its functionality, the symbol is greyed out \includegraphics[width=0.02\textwidth]{images/mic_gray.png}.
+
+
+
+
+\subsection{The Preferences Menu}\label{sub:preferences}
+
+The in-app settings can be accessed in two ways. If the ``Configuration Mode'' has been enabled, a short click on the logo icon in the top left corner of the application opens the settings screen. In normal use, a long click of 5 seconds is necessary to access the menu. Here is a list of all available settings:
 \begin{center}
-	\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
-		\begin{tabularx}{\textwidth}{llX} 
-		STANDALONE & \includegraphics[width=0.02\textwidth]{images/mic_airplaneblue.png} & Application is used for questionnaire purposes only, no additional device needed.\\
-		\\
-		INTERNAL MIC & \includegraphics[width=0.02\textwidth]{images/mic_orange.png} & Objective data is extracted using the internal microphone or the input channel primarily selected by the smartphone.\\
-		\\
-		USB & \includegraphics[width=0.02\textwidth]{images/mic_jadered.png} & Audio data is obtained from a USB audio input device.\\
-		\\
-		A2DP & \includegraphics[width=0.02\textwidth]{images/mic_green.png} & Bluetooth connection using the A2DP protocol. Since this type of connection requires a specialized operating system, it is only available on an LG Nexus 5.\\
-		\\
-		RFCOMM & \includegraphics[width=0.02\textwidth]{images/mic_violet.png} & Bluetooth connection using the RFCOMM protocol using the TGM first generation bluetooth device.\\
-		\\
-		PHANTOM & \includegraphics[width=0.02\textwidth]{images/mic_darkblue.png} & Bluetooth connection using the RFCOMM protocol using the TGM second generation bluetooth device.
-		\end{tabularx}
-	\end{tcolorbox}
+\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=14pt,top=4pt,bottom=2pt]
+\begin{itemize}[label=\ClrSquare{jadeRed}]
+	\item Autostart: If enabled, the app starts automatically.
+	\item USB cuts Connection: The bluetooth connection is terminated if a USB connection is made. 
+	\item Kiosk Mode: If all prerequisites are met, a KIOSK mode is instantiated, granting the application full control of the device.
+	\item Operation Mode: Here the operation mode is selected (see \ref{sub:operationmode})
+	\item Use Questionnaire: Determines whether a questionnaire is used
+	\item Select Questionnaire: Click to select a questionnaire from a list 
+	\item Show Countdown: If enabled, a countdown until the next alarm is displayed. 
+	\item ClientID: If an external (i.e. web-based) questionnaire is used, this is the id used to register
+	\item Link Device: Use this function to link a bluetooth device 
+	\item Version: Shows the current version number
+	\item Configuration Mode: If enabled, the user can access the settings quickly and may exit questionnaires by clicking on the green logo in the top left corner. (see \ref{sub:experimenter})
+	\item Kill App and Service: The most reliable way to shut down the application. If KIOSK mode is active, it is also the only way (that does not include hacking).
+	\item Unset Device Admin: This deprives the application of its special privileges and is needed only before uninstalling. 
+	\item Check for Update: This option guides the user through an automated update process. The user is notified if additional permissions are necessary.
+\end{itemize}
+\end{tcolorbox}
 \end{center}
 
-In case of a bluetooth connection, the device must be paired prior to starting the application via the bluetooth settings of the smartphone or tablet computer. This is achieved by \textit{Settings}$\rightarrow$\textit{Connected Devices}$\rightarrow$\textit{Pair new device}.
+
 
 
 \subsection{Languages}
 
-The application currently supports English and German. Language settings are adjusted automatically.
+The application currently supports English, German, and Swedish. Language settings are adjusted automatically, according to the language setting of the smartphone.
 
 
 \subsection{Log}
 
 
-A log file named ``\textit{Log2.txt}''is created in the main directory that includes information which can be used to understand and retrace the behavior of the application. 
+A log file named ``\textit{log.txt}''is created in the main directory that includes information which can be used to understand and retrace the behavior of the application. 
+
+\newpage
+
+\begin{wrapfigure}{r}{5cm}
+\vspace{-0.5cm}
+		\centering
+			\begin{minipage}{0.30\textwidth}
+			\includegraphics[width=1.00\textwidth]{images/linking.png}
+			\label{fig:menu}
+			\vspace{-2cm}
+			\end{minipage}
+	\end{wrapfigure}
+
+\subsection{Link Device}\label{sub:linkdevice}
+
+Linking a transmitter to the smartphone is mandatory if a bluetooth source is used as audio input for acoustical features. An integrated linking process makes this step very simple and the user is guided by on-screen information (see image on the right). Access to the process is gathered through the in-app settings. Firstly the transmitter is powered on. Then, the button ``Link transmitter'' is pressed. Once a connection has been established, the window may be closed.
+
 
 
 \section{Compilation of a questionnaire}
@@ -289,7 +313,7 @@ The questionnaires are generated on the basis of .xml files which can be altered
 
 \subsection{Location of questionnaire files}
 
-Questionnaire files are placed in the \texttt{quest} folder located in the main directory. The application will automatically sort all questionnaire files alphabetically and pick the uppermost. If you would like to use a specific questionnaire, you can choose manually from the preferences menu (see \ref{sub:experimenter}), but we recommend placing only a single file in the \texttt{quest} folder in order to avoid confusion. 
+Questionnaire files are placed in the \texttt{quest} folder located inside the main directory. The application will automatically sort all questionnaire files alphabetically and pick the uppermost. If you would like to use a specific questionnaire, you can choose manually from the preferences menu (see \ref{sub:experimenter}), but we recommend placing only a single file in the \texttt{quest} folder in order to avoid confusion. 
 
 
 \subsection{Head}
@@ -338,7 +362,7 @@ The title tag can be set to personal taste and is formally needed but does not a
 
 \subsection{Questions}
 
-A question consists of an opening \texttt{question} tag including some properties, e.g. id, type, and filter. Then follows the label -- the actual question. After that usually comes a suite of answer options, which are defined by a unique \texttt{option id}. Although there are no restrictions, it has proven useful in practice to combine \texttt{question id} and \# of the answer using an underscore (the underscore is omitted internally) as question ID. The question ID serves as a unique question identifier and the \texttt{type} sets the answer format. There are seven different formats available.
+A question consists of an opening \texttt{question} tag including some properties, e.g. id, type, and filter. Then follows the label -- the actual question. After that usually comes a suite of answer options, which are defined by a unique \texttt{option id}. Although there are no restrictions, it has proven useful in practice to concatenate \texttt{question id} and \# of the answer option using an underscore (the underscore is omitted internally) as question ID. Since, internally, questions are sorted by ascending ID, a meaningful sequence is advisable. The question ID serves as a unique question identifier and the \texttt{type} sets the answer format. There are seven different formats available.
 
 
 \subsubsection{Single Choice: Radio buttons}
@@ -413,7 +437,6 @@ Checkboxes give the user the impression of a list from which multiple items can 
 \end{center}
 
 
-\newpage
 
 
 \subsubsection{Emojis}  
@@ -457,6 +480,8 @@ Emojis yield a swift and intuitive way of assessing the emotional state of a sub
 	\end{tabular}\\
 \end{center}
 
+
+\newpage
 
 \subsubsection{Text}
 
@@ -527,6 +552,9 @@ Fixed sliders technically do not offer a different choice than radio buttons, bu
 \end{center}
 
 
+\newpage
+
+
 \subsubsection{Free Slider}
 
 Free sliders are fully functional sliders which allow the user to select any value on a given scale. The result is coded as a floating point value between 0 and 1.
@@ -567,6 +595,36 @@ Free sliders are fully functional sliders which allow the user to select any val
 		}
 	\end{tabular}\\
 \end{center}
+
+
+
+\subsubsection{Time-specific behaviour}
+
+The \emph{time} format allows for questionnaires that include aspects specific to the time of day. This question is processed internally and not displayed to the user. If the current time falls within one of the given intervals (here: 06:00-12:00 and 12:00-18:00), the corresponding id is pushed to memory and can be used as a filter for subsequent questions (consult \ref{sub:logic} for reference). This question type should therefore be placed at the beginning of a questionnaire. Use of the 24h HH:mm format is mandatory.
+
+\begin{center}
+\hspace{-0.8cm}
+\begin{tabular}{p{0.68\textwidth} p{0.25\textwidth}} 
+		\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+		\texttt{\noindent
+			$<$question id="10109" type="time"$>$\newline
+			\hspace*{0.5cm}$<$option id="10109\_01"$>$\newline
+			\hspace*{1.0cm}$<$text$>$06:00-12:00$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/option$>$\newline
+			\hspace*{0.5cm}$<$option id="10109\_02"$>$\newline
+			\hspace*{1.0cm}$<$text>12:00-18:00$<$/text$>$\newline
+			\hspace*{0.5cm}$<$/option$>$\newline
+			$<$/question$>$
+			}
+		\end{tcolorbox} 
+		
+		&
+		
+	\end{tabular}\\
+\end{center}
+
+
+\newpage
 
 
 \subsubsection{External Website}
@@ -618,30 +676,7 @@ As the name suggests, it is possible to include one or more external websites in
 \end{center}
 
 
-\subsubsection{Time-specific behaviour}
-
-The \emph{time} format allows for questionnaires that include aspects specific to the time of day. This question is processed internally and not displayed to the user. If the current time falls within one of the given intervals (here: 06:00-12:00 and 12:00-18:00), the corresponding id is pushed to memory and can be used as a filter for subsequent questions (consult \ref{sub:logic} for reference). This question type should therefore be placed at the beginning of a questionnaire. Use of the 24h HH:mm format is mandatory.
-
-\begin{center}
-\hspace{-0.8cm}
-\begin{tabular}{p{0.68\textwidth} p{0.25\textwidth}} 
-		\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
-		\texttt{\noindent
-			$<$question id="10109" type="time"$>$\newline
-			\hspace*{0.5cm}$<$option id="10109\_01"$>$\newline
-			\hspace*{1.0cm}$<$text$>$06:00-12:00$<$/text$>$\newline
-			\hspace*{0.5cm}$<$/option$>$\newline
-			\hspace*{0.5cm}$<$option id="10109\_02"$>$\newline
-			\hspace*{1.0cm}$<$text>12:00-18:00$<$/text$>$\newline
-			\hspace*{0.5cm}$<$/option$>$\newline
-			$<$/question$>$
-			}
-		\end{tcolorbox} 
-		
-		&
-		
-	\end{tabular}\\
-\end{center}
+\newpage
 
 
 \subsubsection{Information without interaction}
@@ -679,9 +714,11 @@ There may be the need for displaying information to the user. This is where this
 	\end{tabular}\\
 \end{center}
 
+
+
 \subsubsection{Information with interaction}
 
-This is an alternative to the \emph{finish} screen, but with the option of filters. Additionally, there may exist multiple of these screens within one survey design. Pressing the button leads to completion of the questionnaire. The information text is displayed inside the heading. Note that this feature might be updated in future releases.
+This is an alternative to the \emph{finish} screen, but with the option of filters. Additionally, there may exist multiple of these screens within one survey design. Pressing the button leads to completion of the questionnaire. The information text is displayed inside the heading. 
 
 \begin{center}
 \hspace{-1.1cm}
@@ -710,7 +747,7 @@ This is an alternative to the \emph{finish} screen, but with the option of filte
 
 \subsubsection{Finish}
 
-The last question must be the finish page which automatically includes a button that completes the questionnaire and saves the results:
+The last question should be the finish page which automatically includes a button that completes the questionnaire and saves the results:
 
 \begin{center}
 \hspace{-1.1cm}
@@ -732,6 +769,7 @@ The last question must be the finish page which automatically includes a button 
 	\end{tabular}\\
 \end{center}
 
+\newpage
 
 \subsection{Checkbox grouping and exclusivity}\label{subsec:goupingandexclusivity}
 
@@ -855,20 +893,26 @@ Two types of comments are supported by the questionnaire format. Single line com
 \end{center}
 
 
+\newpage
+
 \section{Error Messages}
 
 \begin{wrapfigure}{r}{5cm}
 \vspace{-0.5cm}
 		\centering
 			\begin{minipage}{0.30\textwidth}
-			\includegraphics[width=1.00\textwidth]{images/error_quest_box.png}
+			\includegraphics[width=1.00\textwidth]{images/screen_error_quest.png}
 			\label{fig:menu}
 			\end{minipage}
 	\end{wrapfigure}
 
-Inside the application there exist 4 different error messages. These are displayed on the main screen in case of malfunction or general situations that require the user's attention.\\
+Inside the application there exist 6 different error messages. These are displayed on the main screen in case of malfunction or general situations that require the user's attention.\\
 \\
-\textbf{Unable to connect to device:} No bluetooth connection can be established. Usually there are 2 possible reasons. Either the transmitter and receiver are too far apart (a distance of $<$10m is advisable), or the connection was lost due to faulty settings. In this case, please check the settings of your mobile phone if the transmitter is still paired with the device.\\
+\textbf{No Input Profile Config selected:} The application needs some information on whether it should extract features and - if so - which audio source is desired. Please select an operation mode via the in-app preferences under \texttt{Operation Mode}. See also \ref{sub:operationmode} for more information. \\
+\\
+\textbf{Stage Manager Config-File [*] not valid:} The selected operation mode [*].xml file is invalid. Please check the file you are using.\\
+\\
+\textbf{Unable to start Kiosk-Mode -- Please check DeviceOwner Setting:} The KIOSK mode relies on 2 prerequisites. A device owner must be initiated (see \ref{sub:installation} for reference), and the ``Experimenter'' setting must be unset.\\
 \\
 \textbf{Please charge the smartphone:} Strictly speaking this is not an error but a suggestion to do exactly that. This message is shown when the battery level falls below 10\%. The device will probably work for 30 more minutes but, if possible, should be recharged soon.\\
 \\
@@ -880,7 +924,7 @@ Inside the application there exist 4 different error messages. These are display
 
 \section{Resulting file}
 
-Completing a questionnaire results in an .xml file being generated in the ``data'' folder. The file name is composed of the Device ID, the current date in \texttt{yyyyMMdd} (year, month, day) and the time of completion in \texttt{HHmmssSSS} (24h hours, minutes, seconds, milliseconds), for example \texttt{cbaaacf404279a80\_20200430\_125224699.xml}.\\
+Completing a questionnaire results in an .xml file being generated in the \texttt{data} folder. The file name is composed of the Device ID, the current date in \texttt{yyyyMMdd} (year, month, day) and the time of completion in \texttt{HHmmssSSS} (24h hours, minutes, seconds, milliseconds), for example \texttt{cbaaacf404279a80\_20200430\_125224699.xml}.\\
 \\
 The file contains information on whether the questionnaire was taken upon a reminder or deliberately (\texttt{motivation}: auto/manual), which questionnaire design it was based on, the Device ID, version of the application, start and end dates as well as the provided answers.
 
@@ -967,15 +1011,73 @@ with L being the block size in samples and the data formatted as big endian.
 \clearpage
 
 
-\section{Data transfer}\label{sec:transfer}
+\section{Data Extractor}\label{sec:transfer}
 
-For every questionnaire that has been answered, a resulting .xml file is produced which can be found in the \textit{data} folder within the application directory. In order to simplify data transfer we have developed a Matlab interface which can also be used to stop the application (because for safety reasons this is not provided or at least not trivial) and to erase all data from the device. The software is self-explanatory and can be found under GitHub: \url{https://github.com/ol-MEGA/olMEGA_DataExtraction.git}. Please note that so far it has only been tested under Windows 7/10.
+For every questionnaire that has been answered, a resulting .xml file is produced which can be found in the \textit{data} folder within the application directory. Acoustical feature data is placed in the \textit{features} folder. In order to simplify as well as secure data transfer we have developed a Matlab interface which can also be used to control some functions of the smartphone. The software can be downloaded from GitHub: \url{https://github.com/ol-MEGA/olMEGA_DataExtraction.git}. Please note that so far it has only been tested under Windows 7/10. Figure \ref{fig:DataExtractor} shows the main application screen.\\
+\\
+The application is divided into 6 tabs:
+
+\begin{itemize}[label=\ClrSquare{jadeRed}]
+	\item \textbf{Statistics:} This tab displays the number of feature and questionnaire result files found in the user directory. It also yields information on whether or not a log file is present.
+	\item \textbf{User data:} Here is where a new user account is created or an existing user directory is loaded.
+	\item \textbf{Activity:} After loading a directory this tab displays an overview graphic of all the gathered data. More information on this graphic is given in \ref{sub:activity}.
+	\item \textbf{Output:} Information about the current task or contents of a directory is displayed here.
+	\item \textbf{Navigation:} Once the Activity panel shows the overview graphic, these tools enable the user to navigate through the data.
+	\item \textbf{Phone actions:} These options control the mobile device. There is the option of transferring data from the smartphone to the computer, to erase all experiment data from the phone, kill the mobile application, and reboot the device.
+\end{itemize}
 
 \begin{figure}[h]
 	\centering
 		\includegraphics[width=0.90\textwidth]{images/DataExtractor.png}
+	\caption{Data Extractor: Main Screen}
 	\label{fig:DataExtractor}
 \end{figure}
+
+
+
+\subsection{The Activity panel}\label{sub:activity}
+
+
+The graphic overview consists of the main technical parameters that were recorded during the experiment run. The top half shows the state that the mobile application was in at a given time -- one distinct colour for each state. Printed in black is the battery status over the run of the experiment. On clicking into the graphic, a legend appears which relates the colours to states, along with their numeric proportions (Figure \ref{fig:Legend}). 
+
+\begin{itemize}
+	\item [\ClrSquareBig{ml_charging}] \textbf{Charging:} The phone is charging and no data is recorded.
+	\item [\ClrSquareBig{ml_error}] \textbf{Error:} There exists a significant error. No data is recorded.
+	\item [\ClrSquareBig{ml_proposing}] \textbf{Proposing:} An alarm is set off and the user is encouraged to conduct a survey.
+	\item [\ClrSquareBig{ml_connecting}] \textbf{Connecting:} The smartphone is trying to establish a connection to the transmitter.
+	\item [\ClrSquareBig{ml_running}] \textbf{Running:} The application is running without any errors.
+	\item [\ClrSquareBig{ml_quest}] \textbf{Quest:} A questionnaire is taken.
+	\item [\ClrSquareBig{ml_offline}] \textbf{Offline:} The application is closed.
+\end{itemize}
+
+ The lower half of the graphic consists of multiple illustrations: The uppermost, aubergine-coloured plot displays all the time a questionnaire was open. Second are the times the display of the smartphone was illuminated. This information is printed in orange. The lower three plots show the existence and quality of extracted acoustical features, PSD, RMS, and zero-crossing rate. The shading of their colour represents the percentage of error found in the data (the darker, the more errors). These errors can be: too loud, too quiet, signal is mono, and invalid coherence, meaning that the miniature microphones were most likely not head-worn at the time. All error thresholds are motivated by experience and might be adjusted in the future.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.30\textwidth]{images/Legend.PNG}
+	\caption{Data Extractor: Legend}
+	\label{fig:Legend}
+\end{figure}
+
+
+
+
+\subsection{Transferring data from the smartphone to the computer}\label{sub:transfer}
+
+
+\begin{enumerate}
+	\item Connect the phone to the computer
+	\item Enter \textit{Subject} name. The entry form allows any combination of letters and numbers, but is limited to 8 characters.
+	\item Enter \textit{Date} in the given format [yymmdd].
+	\item Enter \textit{Experimenter} token. This is limited to a combination of 2 characters.
+	\item Now click \textit{Create}.
+	\item A dialog box will appear which lets you specify the directory in which a new subject folder is created.
+	\item Now click the button labeled \textit{Transfer}.
+	\item In some cases an error dialog appears, warning either about too many devices connected or no devices found. Simply click \textit{OK} and select \textit{Transfer} again.
+	\item After the transfer process has finished, the overview graphic (see \ref{sub:activity}) is calculated and presented in the \textit{Activity} tab.
+\end{enumerate}
+
+
 
 
 \clearpage
