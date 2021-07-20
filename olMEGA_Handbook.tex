@@ -196,6 +196,8 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	\\
 	\colorbox{black!10}{\texttt{adb shell dpm set-device-owner com.fragtest.android.pa/.AdminReceiver}}.\\
 	
+	\item Start the application.\\
+	
 	\item On opening, please grant the application permission to record audio as well as memory access. You will be informed that no questionnaire file is present. To copy the questionnaire .xml file to its directory on the smartphone, please enter one of the two the following command from the directory that holds the .xml file ([*].xml is the name of your questionnaire):\\
 	\\
 	Android version $<$11:\\
@@ -203,6 +205,8 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	\\
 	Android version 11+:\\
 	\colorbox{black!10}{\texttt{adb push [*].xml sdcard/Android/data/com.iha.olmega\_mobilesoftware\_v2/files/quest}}\\
+	
+	\item Enter the ina-app preferences (see \ref{sub:preferences}) and update to the latest version.
 	
 \end{enumerate}
 
