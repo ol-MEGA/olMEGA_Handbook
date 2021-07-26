@@ -194,7 +194,7 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	
 	\item In order to make the application a device owner, which is needed for it to run as a dedicated device, type\\
 	\\
-	\colorbox{black!10}{\texttt{adb shell dpm set-device-owner com.fragtest.android.pa/.AdminReceiver}}.\\
+	\colorbox{black!10}{\texttt{adb shell dpm set-device-owner com.iha.olmega\_mobilesoftware\_v2/.AdminReceiver}}.\\
 	
 	\item Start the application.\\
 	
@@ -206,7 +206,7 @@ The device should be reset to its operating system default (\textit{Settings}$\r
 	Android version 11+:\\
 	\colorbox{black!10}{\texttt{adb push [*].xml sdcard/Android/data/com.iha.olmega\_mobilesoftware\_v2/files/quest}}\\
 	
-	\item Enter the ina-app preferences (see \ref{sub:preferences}) and update to the latest version.
+	\item Enter the in-app preferences (see \ref{sub:preferences}) and update to the latest version.
 	
 \end{enumerate}
 
@@ -975,12 +975,15 @@ Additional to the facilitation of questionnaires, the olMEGA application also of
 		\begin{tabularx}{\textwidth}{l|l|X} 
 			Type & \# & Contents\\
 			\hline
-			int32 & 1 & \# frames in current chunk\\
-			int32 & 1 & \# dimensions (including frame time stamps)\\
-			int32 & 1 & block size in samples\\
-			int32 & 1 & hop size in samples\\  
+			int32 & 1 & protocol version\\
+			int32 & 1 & block count\\
+			int32 & 1 & feature dimensions\\
+			int32 & 1 & block size\\
+			int32 & 1 & hop size\\
 			int32 & 1 & audio sampling rate\\
-			byte & 16 & time stamp of block (yyyyMMdd\_HHmmssSSS)\\
+			byte & 16 & time stamp (yyMMdd\_HHmmssSSS)\\
+			float & 1 & calibration value in dB, channel 1\\
+			float & 1 & calibration value in dB, channel 1\\
 		\end{tabularx}
 		}
 	\end{tcolorbox}
