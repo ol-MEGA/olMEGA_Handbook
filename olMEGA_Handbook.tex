@@ -312,7 +312,7 @@ Linking a transmitter to the smartphone is mandatory if a bluetooth source is us
 
 \subsection{General outline}
 
-The questionnaires are generated on the basis of .xml files which can be altered to suit the needs of the experiment. Generally it is a good idea to start from an existing file and make changes, testing them regularly on the smartphone in order to guarantee errorless functionality. In case of formal mistakes (e.g. missing brackets or typos within tags) the application might crash. 
+The questionnaires are generated on the basis of .xml files which can be altered to meet the needs of the experiment. Generally, it is a good idea to start from an existing file and make changes, testing them regularly on the smartphone in order to guarantee errorless functionality. In case of formal mistakes (e.g. missing brackets or typos within tags) the application might crash. 
 
 
 \subsection{Location of questionnaire files}
@@ -334,7 +334,9 @@ The head consists of two lines that must not be changed, but may become obsolete
 
 \subsection{Timer}
 
-Two different timer settings exist: \textit{interval} and \textit{fixed schedule}. When choosing interval, a \texttt{mean} and \texttt{deviation} value can be set. The application generates a random interval true to a uniform distribution within the given limits (mean$\pm$deviation). This can be beneficial in order to avoid sampling artifacts, e.g. suggesting a questionnaire every 60 minutes to someone who is always listening to the news at that time. If the scheduling interval should not be random, a deviation value of "0" is set. The timer is re-initiated after a questionnaire has been finalized.
+Three different timer settings exist to trigger an alarm: \textit{random}, \textit{date}, and \textit{interval}. If no timer setting is specified, no alarm will be triggered.\\
+
+\textbf{Random:} When choosing random, a \texttt{mean} and \texttt{deviation} value can be set. The application draws a random interval from a uniform distribution based on the given limits (mean$\pm$deviation). This can be beneficial in order to avoid sampling artifacts, e.g. suggesting a questionnaire every 60 minutes to someone who is always listening to the news at that time. If the scheduling interval should not be random, a deviation value of "0" is set. The timer is re-initiated after a questionnaire has been finalized.
 
 \begin{center}
 \begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
@@ -342,11 +344,30 @@ Two different timer settings exist: \textit{interval} and \textit{fixed schedule
 \end{tcolorbox}
 \end{center}
 
-If it is desired to suggest a questionnaire at specific times during the day, the \texttt{date} value must be set. The value is entered in form of a String, meaning a time within quotation marks, e.g. "13:47". The system uses the 24h format HH:mm and multiple dates can be entered by concatenating times with a semicolon, e.g. "12:15;17:21;14:41". Times are sorted automatically by the application. 
+\textbf{Date:} If it is desired to suggest a questionnaire at specific times during the day, the \texttt{date} value must be set. The value is entered in form of a String, meaning a time within quotation marks, e.g. "13:47". The system uses the 24h format HH:mm and multiple dates can be entered by concatenating times with a semicolon, e.g. "12:15;17:21;14:41". Times are sorted automatically by the application. 
 
 \begin{center}
 \begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
 \texttt{<timer date="12:15;13:13;14:41;17:21;08:10;08:12"></timer>}
+\end{tcolorbox}
+\end{center}
+
+\textbf{Interval:} The third option is to specify an interval, during which one (!) alarm is triggered. The exact time is randomly chosen from a uniform distribution based on the limits of the specified interval. Beginning and end times are separated using a minus character. Multiple intervals may be specified, separated by a semicolon.
+
+\begin{center}
+\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+\texttt{<timer between="09:00-10:30;13:00-14:00;18:43-18:44"></timer>}
+\end{tcolorbox}
+\end{center}
+
+
+\subsection{Do not disturb}
+
+The software allows for one interval, in which no alarm is triggered. This only works in connection with the \textit{random} timer option. 
+
+\begin{center}
+\begin{tcolorbox}[colback=black!10!white,colframe=black!50!white, boxsep=1pt,left=4pt,right=4pt,top=4pt,bottom=2pt]
+\texttt{<donotdisturb between="22:00-09:00"></donotdisturb>}
 \end{tcolorbox}
 \end{center}
 
